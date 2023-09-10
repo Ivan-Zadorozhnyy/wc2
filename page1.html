@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Page</title>
+</head>
+
+<body>
+<header>
+  <h1>Form Page</h1>
+  <nav>
+    <a href="page2.html">Text Elements</a>
+    <a href="page3.html">Media Page</a>
+  </nav>
+</header>
+<aside>
+  <nav>
+    <ul>
+      <li><a href="page2.html">Text Elements</a></li>
+      <li><a href="page3.html">Media Page</a></li>
+    </ul>
+  </nav>
+</aside>
+<main>
+  <form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br><br>
+
+    <label for="imgUpload">Upload Image:</label>
+    <input type="file" id="imgUpload" name="imgUpload"><br><br>
+
+    <label>Choose a color:</label><br>
+    <input type="radio" id="red" name="color" value="red">
+    <label for="red">Red</label><br>
+    <input type="radio" id="blue" name="color" value="blue">
+    <label for="blue">Blue</label><br><br>
+
+    <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+    <label for="subscribe">Subscribe to newsletter</label><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <table border="1">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Image Name</th>
+      <th>Color</th>
+      <th>Subscribed</th>
+    </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+  </table>
+</main>
+<script>
+  let submissionCount = 0;
+
+  document.getElementById('myForm').addEventListener('submit',
+          function (e) {
+            e.preventDefault();
+
+            if (submissionCount >= 5) {
+              document.getElementById('tableBody').innerHTML = '';
+              submissionCount = 0;
+            }
+
+            const name = document.getElementById('name').value;
+            const imageName = document.getElementById('imgUpload').value.split('\\').pop();
+            const color = document.querySelector('input[name="color"]:checked').value;
+            const subscribed = document.getElementById('subscribe').checked ? 'Yes' : 'No';
+
+            const newRow = `
+                <tr>
+                    <td>${name}</td>
+                    <td>${imageName}</td>
+                    <td>${color}</td>
+                    <td>${subscribed}</td>
+                </tr>
+            `;
+
+            document.getElementById('tableBody').innerHTML += newRow;
+            submissionCount++;
+          });
+</script>
+</body>
+</html>
